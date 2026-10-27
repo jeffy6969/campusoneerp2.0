@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="data:," />
+<title>Admin Portal — Campus Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+  <div class="orb orb-violet"></div>
+  <div class="orb orb-cyan"></div>
+  <div class="orb orb-pink"></div>
+
+  <header class="topbar">
+    <div class="topbar-brand"><i data-lucide="graduation-cap"></i><span>Campus Portal</span></div>
+    <div class="topbar-user">
+      <span id="welcomeText">Loading...</span>
+      <button id="signOutBtn" class="icon-btn" title="Sign out"><i data-lucide="log-out"></i></button>
+    </div>
+  </header>
+
+  <nav class="portal-nav">
+    <a href="index.html" class="nav-link active"><i data-lucide="users"></i>Users</a>
+    <a href="departments.html" class="nav-link"><i data-lucide="building-2"></i>Departments</a>
+    <a href="courses.html" class="nav-link"><i data-lucide="book-open"></i>Courses</a>
+    <a href="rooms-slots.html" class="nav-link"><i data-lucide="door-open"></i>Rooms &amp; Slots</a>
+    <a href="timetable.html" class="nav-link"><i data-lucide="calendar-range"></i>Timetable</a>
+    <a href="fees.html" class="nav-link"><i data-lucide="banknote"></i>Fees</a>
+    <a href="clubs.html" class="nav-link"><i data-lucide="users-round"></i>Clubs</a>
+    <a href="companies.html" class="nav-link"><i data-lucide="briefcase"></i>Placements</a>
+    <a href="mentors.html" class="nav-link"><i data-lucide="user-check"></i>Mentors</a>
+    <a href="grievances.html" class="nav-link"><i data-lucide="message-square-warning"></i>Grievances</a>
+    <a href="exams.html" class="nav-link"><i data-lucide="calendar-clock"></i>Exams</a>
+  </nav>
+
+  <main class="page-shell">
+    <h2>Manage users</h2>
+
+    <div class="card section-gap">
+      <h3><i data-lucide="user-plus"></i>Add a new user</h3>
+      <div id="createUserError" class="error-msg"></div>
+      <form id="createUserForm">
+        <div class="form-grid" style="margin-bottom:16px;">
+          <div class="field">
+            <label for="fullName">Full name</label>
+            <div class="input-wrap"><i data-lucide="user"></i><input type="text" id="fullName" required /></div>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <div class="input-wrap"><i data-lucide="mail"></i><input type="email" id="email" required /></div>
+          </div>
+          <div class="field">
+            <label for="role">Role</label>
+            <select id="role">
+              <option value="student">Student</option>
+              <option value="teacher">Teacher</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="department">Department</label>
+            <select id="department"><option value="">Select department</option></select>
+          </div>
+        </div>
+
+        <div id="studentFields" class="form-grid" style="margin-bottom:16px;">
+          <div class="field">
+            <label for="rollNumber">Roll number</label>
+            <div class="input-wrap"><i data-lucide="hash"></i><input type="text" id="rollNumber" /></div>
+          </div>
+          <div class="field">
+            <label for="batchYear">Batch year</label>
+            <div class="input-wrap"><i data-lucide="calendar"></i><input type="number" id="batchYear" placeholder="e.g. 2026" /></div>
+          </div>
+          <div class="field">
+            <label for="section">Section</label>
+            <select id="section"><option value="">Select department + batch year first</option></select>
+          </div>
+        </div>
+
+        <div id="teacherFields" class="form-grid" style="margin-bottom:16px; display:none;">
+          <div class="field">
+            <label for="employeeId">Employee ID</label>
+            <div class="input-wrap"><i data-lucide="id-card"></i><input type="text" id="employeeId" /></div>
+          </div>
+          <div class="field">
+            <label for="designation">Designation</label>
+            <div class="input-wrap"><i data-lucide="briefcase"></i><input type="text" id="designation" placeholder="Assistant Professor" /></div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="createBtn">
+          <span id="createBtnText">Create user</span>
+          <i data-lucide="arrow-right" class="arrow-icon icon-idle"></i>
+          <i data-lucide="loader-2" class="arrow-icon icon-loading spin" style="display:none;"></i>
+        </button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h3><i data-lucide="users"></i>All users</h3>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Mentor</th><th>Actions</th></tr></thead>
+          <tbody id="usersTableBody"><tr><td colspan="3" class="text-muted">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <div id="tempPasswordModal" class="modal-backdrop" style="display:none;">
+    <div class="modal-box">
+      <h3><i data-lucide="key-round"></i>User created</h3>
+      <p>Share these credentials with the new user. This password won't be shown again.</p>
+      <div class="field" style="margin-top:16px;">
+        <label>Email</label>
+        <div class="input-wrap"><i data-lucide="mail"></i><input type="text" id="modalEmail" readonly /></div>
+      </div>
+      <div class="field">
+        <label>Temporary password</label>
+        <div class="input-wrap"><i data-lucide="lock"></i><input type="text" id="modalPassword" readonly /></div>
+      </div>
+      <div class="modal-close-row">
+        <button class="btn btn-secondary" id="closeModalBtn">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../shared/supabase-client.js"></script>
+  <script>window.REQUIRED_ROLE = 'admin';</script>
+  <script src="../shared/auth-guard.js"></script>
+  <script src="../shared/toast.js"></script>
+  <script src="users.js"></script>
+
+  <script src="../shared/sidebar.js"></script>
+</body>
+</html>

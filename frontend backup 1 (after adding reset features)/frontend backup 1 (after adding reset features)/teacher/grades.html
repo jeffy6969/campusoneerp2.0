@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="data:," />
+<title>Grades — Campus Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+  <div class="orb orb-violet"></div>
+  <div class="orb orb-cyan"></div>
+  <div class="orb orb-pink"></div>
+
+  <header class="topbar">
+    <div class="topbar-brand"><i data-lucide="graduation-cap"></i><span>Campus Portal</span></div>
+    <div class="topbar-user">
+      <span id="welcomeText">Loading...</span>
+      <button id="signOutBtn" class="icon-btn" title="Sign out"><i data-lucide="log-out"></i></button>
+    </div>
+  </header>
+
+  <nav class="portal-nav">
+    <a href="index.html" class="nav-link"><i data-lucide="clipboard-list"></i>Attendance</a>
+    <a href="grades.html" class="nav-link active"><i data-lucide="graduation-cap"></i>Grades</a>
+    <a href="mentor-meetings.html" class="nav-link"><i data-lucide="calendar-check"></i>Mentor</a>
+    <a href="grievances.html" class="nav-link"><i data-lucide="message-square-warning"></i>Grievances</a>
+    <a href="club-roster.html" class="nav-link"><i data-lucide="users-round"></i>Club</a>
+  </nav>
+
+  <main class="page-shell">
+    <h2>Grades</h2>
+    <div class="card">
+      <div class="form-grid" style="margin-bottom:20px;">
+        <div class="field">
+          <label for="gradeCourseSelect">Course</label>
+          <select id="gradeCourseSelect"><option value="">Loading your courses...</option></select>
+        </div>
+        <div class="field">
+          <label for="gradeYear">Academic year</label>
+          <div class="input-wrap"><i data-lucide="calendar"></i><input type="text" id="gradeYear" placeholder="2026-27" /></div>
+        </div>
+      </div>
+      <button class="btn btn-primary" id="loadRosterBtn"><span>Load roster</span><i data-lucide="arrow-right" class="arrow-icon"></i></button>
+
+      <div id="gradesRosterWrap" style="margin-top:24px; display:none;">
+        <h3><i data-lucide="clipboard-list"></i>Enter grades</h3>
+        <div id="gradesRosterList"></div>
+        <button class="btn btn-primary" id="saveGradesBtn" style="margin-top:16px;"><span>Save all</span><i data-lucide="arrow-right" class="arrow-icon"></i></button>
+      </div>
+    </div>
+  </main>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../shared/supabase-client.js"></script>
+  <script>window.REQUIRED_ROLE = 'teacher';</script>
+  <script src="../shared/auth-guard.js"></script>
+  <script src="../shared/toast.js"></script>
+  <script src="grades.js"></script>
+
+  <script src="../shared/sidebar.js"></script>
+</body>
+</html>

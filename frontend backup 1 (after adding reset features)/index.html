@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="data:," />
+<title>Sign in — Campus Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared/styles.css">
+</head>
+<body>
+  <div class="orb orb-violet"></div>
+  <div class="orb orb-cyan"></div>
+  <div class="orb orb-pink"></div>
+
+  <main class="login-wrap">
+    <div class="glass-card">
+      <div class="brand">
+        <div class="brand-mark"><i data-lucide="graduation-cap"></i></div>
+        <h1>Campus Portal</h1>
+        <p class="subtitle">Sign in with your college email</p>
+      </div>
+
+      <div id="errorMsg" class="error-msg"></div>
+
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="email">Email</label>
+          <div class="input-wrap">
+            <i data-lucide="mail"></i>
+            <input type="email" id="email" name="email" placeholder="you@college.edu" required autocomplete="username" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <i data-lucide="lock"></i>
+            <input type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password" />
+            <span id="togglePassword" class="toggle-visibility">
+              <i data-lucide="eye" class="icon-show"></i>
+              <i data-lucide="eye-off" class="icon-hide" style="display:none;"></i>
+            </span>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">
+          <span id="btnText">Sign in</span>
+          <i data-lucide="arrow-right" class="arrow-icon icon-idle"></i>
+          <i data-lucide="loader-2" class="arrow-icon icon-loading spin" style="display:none;"></i>
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="shared/supabase-client.js"></script>
+  <script src="login.js"></script>
+</body>
+</html>

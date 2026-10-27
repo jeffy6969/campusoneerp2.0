@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="data:," />
+<title>Fees — Campus Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+  <div class="orb orb-violet"></div>
+  <div class="orb orb-cyan"></div>
+  <div class="orb orb-pink"></div>
+
+  <header class="topbar">
+    <div class="topbar-brand"><i data-lucide="graduation-cap"></i><span>Campus Portal</span></div>
+    <div class="topbar-user">
+      <span id="welcomeText">Loading...</span>
+      <button id="signOutBtn" class="icon-btn" title="Sign out"><i data-lucide="log-out"></i></button>
+    </div>
+  </header>
+
+  <nav class="portal-nav">
+    <a href="index.html" class="nav-link"><i data-lucide="users"></i>Users</a>
+    <a href="departments.html" class="nav-link"><i data-lucide="building-2"></i>Departments</a>
+    <a href="courses.html" class="nav-link"><i data-lucide="book-open"></i>Courses</a>
+    <a href="rooms-slots.html" class="nav-link"><i data-lucide="door-open"></i>Rooms &amp; Slots</a>
+    <a href="timetable.html" class="nav-link"><i data-lucide="calendar-range"></i>Timetable</a>
+    <a href="fees.html" class="nav-link active"><i data-lucide="banknote"></i>Fees</a>
+    <a href="clubs.html" class="nav-link"><i data-lucide="users-round"></i>Clubs</a>
+    <a href="companies.html" class="nav-link"><i data-lucide="briefcase"></i>Placements</a>
+    <a href="mentors.html" class="nav-link"><i data-lucide="user-check"></i>Mentors</a>
+    <a href="grievances.html" class="nav-link"><i data-lucide="message-square-warning"></i>Grievances</a>
+    <a href="exams.html" class="nav-link"><i data-lucide="calendar-clock"></i>Exams</a>
+  </nav>
+
+  <main class="page-shell">
+    <h2>Fee Structures</h2>
+    <div class="split-layout">
+      <div class="card">
+        <h3><i data-lucide="banknote"></i>Add fee structure</h3>
+        <div id="feeError" class="error-msg"></div>
+        <form id="feeForm">
+          <div class="field" style="margin-bottom:16px;">
+            <label for="feeDept">Department</label>
+            <select id="feeDept"><option value="">Select department</option></select>
+          </div>
+          <div class="field" style="margin-bottom:16px;">
+            <label for="feeBatchYear">Batch year</label>
+            <div class="input-wrap"><i data-lucide="calendar"></i><input type="number" id="feeBatchYear" placeholder="e.g. 2026" required /></div>
+          </div>
+          <div class="field" style="margin-bottom:16px;">
+            <label for="feeSemester">Semester</label>
+            <div class="input-wrap"><i data-lucide="hash"></i><input type="number" id="feeSemester" min="1" max="8" required /></div>
+          </div>
+          <div class="field" style="margin-bottom:16px;">
+            <label for="feeType">Fee type</label>
+            <select id="feeType">
+              <option value="tuition">Tuition</option>
+              <option value="hostel">Hostel</option>
+              <option value="exam">Exam</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="field" style="margin-bottom:16px;">
+            <label for="feeAmount">Amount (\u20b9)</label>
+            <div class="input-wrap"><i data-lucide="banknote"></i><input type="number" id="feeAmount" step="0.01" required /></div>
+          </div>
+          <div class="field" style="margin-bottom:16px;">
+            <label for="feeDueDate">Due date</label>
+            <div class="input-wrap"><i data-lucide="calendar"></i><input type="date" id="feeDueDate" /></div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full"><span>Add fee structure</span><i data-lucide="arrow-right" class="arrow-icon"></i></button>
+        </form>
+      </div>
+      <div class="card">
+        <h3><i data-lucide="list"></i>All fee structures</h3>
+        <div id="feesList"><p class="text-muted">Loading...</p></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><i data-lucide="check-circle"></i>Record a payment</h3>
+      <div id="paymentError" class="error-msg"></div>
+      <div class="form-grid" style="margin-bottom:16px;">
+        <div class="field">
+          <label for="paymentRollLookup">Student roll number</label>
+          <div class="input-wrap"><i data-lucide="hash"></i><input type="text" id="paymentRollLookup" placeholder="2026CSE0001" /></div>
+        </div>
+        <div class="field">
+          <label>&nbsp;</label>
+          <button class="btn btn-secondary btn-full" id="lookupPaymentStudentBtn" type="button"><span>Find dues</span></button>
+        </div>
+      </div>
+      <div id="paymentDuesList"></div>
+    </div>
+  </main>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../shared/supabase-client.js"></script>
+  <script>window.REQUIRED_ROLE = 'admin';</script>
+  <script src="../shared/auth-guard.js"></script>
+  <script src="../shared/toast.js"></script>
+  <script src="fees.js"></script>
+
+  <script src="../shared/sidebar.js"></script>
+</body>
+</html>

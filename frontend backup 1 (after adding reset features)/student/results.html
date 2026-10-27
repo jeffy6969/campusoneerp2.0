@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="data:," />
+<title>Results — Campus Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+  <div class="orb orb-violet"></div>
+  <div class="orb orb-cyan"></div>
+  <div class="orb orb-pink"></div>
+
+  <header class="topbar">
+    <div class="topbar-brand"><i data-lucide="graduation-cap"></i><span>Campus Portal</span></div>
+    <div class="topbar-user">
+      <span id="welcomeText">Loading...</span>
+      <button id="signOutBtn" class="icon-btn" title="Sign out"><i data-lucide="log-out"></i></button>
+    </div>
+  </header>
+
+  <nav class="portal-nav">
+    <a href="index.html" class="nav-link"><i data-lucide="layout-dashboard"></i>Dashboard</a>
+    <a href="grievances.html" class="nav-link"><i data-lucide="message-square-warning"></i>Grievances</a>
+    <a href="clubs.html" class="nav-link"><i data-lucide="users-round"></i>Clubs</a>
+    <a href="placements.html" class="nav-link"><i data-lucide="briefcase"></i>Placements</a>
+    <a href="fees.html" class="nav-link"><i data-lucide="banknote"></i>Fees</a>
+    <a href="mentor-meetings.html" class="nav-link"><i data-lucide="calendar-check"></i>Mentor</a>
+    <a href="exams.html" class="nav-link"><i data-lucide="calendar-clock"></i>Exams</a>
+    <a href="results.html" class="nav-link active"><i data-lucide="graduation-cap"></i>Results</a>
+  </nav>
+
+  <main class="page-shell">
+    <h2>Results</h2>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label"><i data-lucide="award"></i>CGPA</div>
+        <div class="stat-value" id="resultsCgpa">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label"><i data-lucide="alert-triangle"></i>Active backlogs</div>
+        <div class="stat-value" id="resultsBacklogs">—</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><i data-lucide="graduation-cap"></i>All results</h3>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Course</th><th>Academic year</th><th>Grade point</th><th>Result</th></tr></thead>
+          <tbody id="resultsTableBody"><tr><td colspan="4" class="text-muted">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../shared/supabase-client.js"></script>
+  <script>window.REQUIRED_ROLE = 'student';</script>
+  <script src="../shared/auth-guard.js"></script>
+  <script src="../shared/toast.js"></script>
+  <script src="results.js"></script>
+
+  <script src="../shared/sidebar.js"></script>
+</body>
+</html>

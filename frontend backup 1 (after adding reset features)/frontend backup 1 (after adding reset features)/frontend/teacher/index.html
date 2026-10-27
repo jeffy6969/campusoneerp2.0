@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="data:," />
+<title>Teacher Portal — Campus Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+  <div class="orb orb-violet"></div>
+  <div class="orb orb-cyan"></div>
+  <div class="orb orb-pink"></div>
+
+  <header class="topbar">
+    <div class="topbar-brand"><i data-lucide="graduation-cap"></i><span>Campus Portal</span></div>
+    <div class="topbar-user">
+      <span id="welcomeText">Loading...</span>
+      <button id="signOutBtn" class="icon-btn" title="Sign out"><i data-lucide="log-out"></i></button>
+    </div>
+  </header>
+
+  <main class="portal-main">
+    <div class="placeholder-card">
+      <i data-lucide="hammer"></i>
+      <h2>Teacher portal</h2>
+      <p>You're signed in and authorized. Attendance, risk analysis, and the rest get built here next.</p>
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../shared/supabase-client.js"></script>
+  <script>window.REQUIRED_ROLE = 'teacher';</script>
+  <script src="../shared/auth-guard.js"></script>
+  <script>
+    lucide.createIcons();
+    document.addEventListener('auth-ready', () => {
+      document.getElementById('welcomeText').textContent = `${window.currentUser.full_name} · Teacher`;
+    });
+    document.getElementById('signOutBtn').addEventListener('click', async () => {
+      await supabaseClient.auth.signOut();
+      window.location.href = '../';
+    });
+  </script>
+</body>
+</html>

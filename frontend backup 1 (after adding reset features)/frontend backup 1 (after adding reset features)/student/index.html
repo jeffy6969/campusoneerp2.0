@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="data:," />
+<title>Student Portal — Campus Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+  <div class="orb orb-violet"></div>
+  <div class="orb orb-cyan"></div>
+  <div class="orb orb-pink"></div>
+
+  <header class="topbar">
+    <div class="topbar-brand"><i data-lucide="graduation-cap"></i><span>Campus Portal</span></div>
+    <div class="topbar-user">
+      <span id="welcomeText">Loading...</span>
+      <!-- ADDED: Change Password Button -->
+      <button class="icon-btn" onclick="openPasswordModal()" title="Change Password"><i data-lucide="key"></i></button>
+      <button id="signOutBtn" class="icon-btn" title="Sign out"><i data-lucide="log-out"></i></button>
+    </div>
+  </header>
+
+  <nav class="portal-nav">
+    <a href="index.html" class="nav-link active"><i data-lucide="layout-dashboard"></i>Dashboard</a>
+    <a href="grievances.html" class="nav-link"><i data-lucide="message-square-warning"></i>Grievances</a>
+    <a href="clubs.html" class="nav-link"><i data-lucide="users-round"></i>Clubs</a>
+    <a href="placements.html" class="nav-link"><i data-lucide="briefcase"></i>Placements</a>
+    <a href="fees.html" class="nav-link"><i data-lucide="banknote"></i>Fees</a>
+    <a href="mentor-meetings.html" class="nav-link"><i data-lucide="calendar-check"></i>Mentor</a>
+    <a href="exams.html" class="nav-link"><i data-lucide="calendar-clock"></i>Exams</a>
+    <a href="results.html" class="nav-link"><i data-lucide="graduation-cap"></i>Results</a>
+  </nav>
+
+  <main class="page-shell">
+    <section class="card profile-overview section-gap" id="profileOverview" aria-labelledby="profileHeading">
+      <div class="profile-overview-head">
+        <div class="profile-avatar" id="profileInitials">U</div>
+        <div class="profile-title-wrap"><p class="profile-eyebrow">YOUR PROFILE</p><h2 id="profileHeading">Student profile</h2><p class="text-muted" id="profileSubtitle">Loading your profile details…</p></div>
+        <span class="profile-role-chip" id="profileRole">Account</span>
+      </div>
+      <div class="profile-overview-grid" id="profileDetailsGrid">
+        <div class="profile-detail"><span>Full name</span><strong id="profileName">Loading…</strong></div>
+        <div class="profile-detail"><span>Email</span><strong id="profileEmail">—</strong></div>
+        <div class="profile-detail"><span>Role</span><strong id="profileRoleValue">—</strong></div>
+        <div class="profile-detail"><span>Academic / account year</span><strong id="profileYear">—</strong></div>
+        <div class="profile-detail"><span>Department / courses</span><strong id="profileDepartment">—</strong></div>
+        <div class="profile-detail"><span>Semester / teaching</span><strong id="profileTerm">—</strong></div>
+      </div>
+    </section>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label"><i data-lucide="award"></i>CGPA</div>
+        <div class="stat-value" id="cgpaValue">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label"><i data-lucide="alert-triangle"></i>Active backlogs</div>
+        <div class="stat-value" id="backlogsValue">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label"><i data-lucide="banknote"></i>Fees due</div>
+        <div class="stat-value" id="feesValue">—</div>
+      </div>
+    </div>
+
+    <h2>Attendance by course</h2>
+    <div class="card section-gap">
+      <div id="attendanceList"><p class="text-muted">Loading...</p></div>
+    </div>
+
+    <div class="card">
+      <h3><i data-lucide="sparkles"></i>AI academic advisor</h3>
+      <p class="text-muted" style="margin-bottom:16px;">Get personalized recommendations based on your grades, attendance, and available electives.</p>
+      <button class="btn btn-primary" id="advisorBtn">
+        <span id="advisorBtnText">Ask my advisor</span>
+        <i data-lucide="sparkles" class="arrow-icon icon-idle"></i>
+        <i data-lucide="loader-2" class="arrow-icon icon-loading spin" style="display:none;"></i>
+      </button>
+    </div>
+  </main>
+
+  <div id="advisorModal" class="modal-backdrop" style="display:none;">
+    <div class="modal-box">
+      <h3><i data-lucide="sparkles"></i>Your advisor's notes</h3>
+      <p id="advisorText"></p>
+      <div class="modal-close-row">
+        <button class="btn btn-secondary" id="closeAdvisorBtn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADDED: Password Change Modal adapted to use your existing CSS classes -->
+  <div id="passwordModal" class="modal-backdrop" style="display:none;">
+    <div class="modal-box">
+      <h3><i data-lucide="key"></i>Change Password</h3>
+      <div style="display:flex; flex-direction:column; gap:12px; margin-top:16px;">
+        <input type="password" id="currentPassword" placeholder="Current Password" style="padding: 10px; border-radius: 6px; border: 1px solid var(--border-color, #e2e8f0); width: 100%; box-sizing: border-box; font-family: inherit;">
+        <input type="password" id="newPassword" placeholder="New Password (min 8 chars)" style="padding: 10px; border-radius: 6px; border: 1px solid var(--border-color, #e2e8f0); width: 100%; box-sizing: border-box; font-family: inherit;">
+        <input type="password" id="confirmPassword" placeholder="Confirm New Password" style="padding: 10px; border-radius: 6px; border: 1px solid var(--border-color, #e2e8f0); width: 100%; box-sizing: border-box; font-family: inherit;">
+      </div>
+      <div class="modal-close-row" style="margin-top:20px;">
+        <button class="btn btn-primary" onclick="submitPasswordChange()">Update Password</button>
+        <button class="btn btn-secondary" onclick="closePasswordModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../shared/supabase-client.js"></script>
+  <script>window.REQUIRED_ROLE = 'student';</script>
+  <script src="../shared/auth-guard.js"></script>
+  <script src="../shared/toast.js"></script>
+  <script src="dashboard.js"></script>
+
+  <script src="../shared/sidebar.js"></script>
+</body>
+</html>

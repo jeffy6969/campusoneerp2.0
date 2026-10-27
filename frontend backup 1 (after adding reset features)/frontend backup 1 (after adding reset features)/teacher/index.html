@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="data:," />
+<title>Teacher Portal — Campus Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+  <div class="orb orb-violet"></div>
+  <div class="orb orb-cyan"></div>
+  <div class="orb orb-pink"></div>
+
+  <header class="topbar">
+    <div class="topbar-brand"><i data-lucide="graduation-cap"></i><span>Campus Portal</span></div>
+    <div class="topbar-user">
+      <span id="welcomeText">Loading...</span>
+      <!-- ADDED: Change Password Button -->
+      <button class="icon-btn" onclick="openPasswordModal()" title="Change Password"><i data-lucide="key"></i></button>
+      <button id="signOutBtn" class="icon-btn" title="Sign out"><i data-lucide="log-out"></i></button>
+    </div>
+  </header>
+
+  <nav class="portal-nav">
+    <a href="index.html" class="nav-link active"><i data-lucide="clipboard-list"></i>Attendance</a>
+    <a href="grades.html" class="nav-link"><i data-lucide="graduation-cap"></i>Grades</a>
+    <a href="mentor-meetings.html" class="nav-link"><i data-lucide="calendar-check"></i>Mentor</a>
+    <a href="grievances.html" class="nav-link"><i data-lucide="message-square-warning"></i>Grievances</a>
+    <a href="club-roster.html" class="nav-link"><i data-lucide="users-round"></i>Club</a>
+  </nav>
+
+  <main class="page-shell">
+    <section class="card profile-overview section-gap" id="profileOverview" aria-labelledby="profileHeading">
+      <div class="profile-overview-head">
+        <div class="profile-avatar" id="profileInitials">U</div>
+        <div class="profile-title-wrap"><p class="profile-eyebrow">YOUR PROFILE</p><h2 id="profileHeading">Teacher name</h2><p class="text-muted" id="profileSubtitle">Loading your profile details…</p></div>
+        <span class="profile-role-chip" id="profileRole">Account</span>
+      </div>
+      <div class="profile-overview-grid" id="profileDetailsGrid">
+        <div class="profile-detail"><span>Full name</span><strong id="profileName">Loading…</strong></div>
+        <div class="profile-detail"><span>Email</span><strong id="profileEmail">—</strong></div>
+        <div class="profile-detail"><span>Role</span><strong id="profileRoleValue">—</strong></div>
+        <div class="profile-detail"><span>Academic / account year</span><strong id="profileYear">—</strong></div>
+        <div class="profile-detail"><span>Department / courses</span><strong id="profileDepartment">—</strong></div>
+        <div class="profile-detail"><span>Semester / teaching</span><strong id="profileTerm">—</strong></div>
+      </div>
+    </section>
+
+    <h2>Take attendance</h2>
+    <div class="card section-gap">
+      <div class="form-grid" style="margin-bottom:20px;">
+        <div class="field">
+          <label for="courseSelect">Course</label>
+          <select id="courseSelect"><option value="">Loading your courses...</option></select>
+        </div>
+        <div class="field">
+          <label for="slotSelect">Slot</label>
+          <select id="slotSelect"><option value="">Select a course first</option></select>
+        </div>
+        <div class="field">
+          <label for="sessionDate">Date</label>
+          <div class="input-wrap"><i data-lucide="calendar"></i><input type="date" id="sessionDate" /></div>
+        </div>
+      </div>
+      <button class="btn btn-primary" id="openSessionBtn">
+        <span>Open session</span>
+        <i data-lucide="arrow-right" class="arrow-icon"></i>
+      </button>
+
+      <div id="rosterWrap" style="margin-top:24px; display:none;">
+        <h3><i data-lucide="clipboard-list"></i>Roster</h3>
+        <div id="rosterList"></div>
+      </div>
+    </div>
+
+    <h2>At-risk students</h2>
+    <div class="card">
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Name</th><th>Roll no.</th><th>Risk score</th><th>Tier</th></tr></thead>
+          <tbody id="riskTableBody"><tr><td colspan="4" class="text-muted">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- ADDED: Password Change Modal -->
+  <div id="passwordModal" class="modal-backdrop" style="display:none;">
+    <div class="modal-box">
+      <h3><i data-lucide="key"></i>Change Password</h3>
+      <div style="display:flex; flex-direction:column; gap:12px; margin-top:16px;">
+        <input type="password" id="currentPassword" placeholder="Current Password" style="padding: 10px; border-radius: 6px; border: 1px solid var(--border-color, #e2e8f0); width: 100%; box-sizing: border-box; font-family: inherit;">
+        <input type="password" id="newPassword" placeholder="New Password (min 8 chars)" style="padding: 10px; border-radius: 6px; border: 1px solid var(--border-color, #e2e8f0); width: 100%; box-sizing: border-box; font-family: inherit;">
+        <input type="password" id="confirmPassword" placeholder="Confirm New Password" style="padding: 10px; border-radius: 6px; border: 1px solid var(--border-color, #e2e8f0); width: 100%; box-sizing: border-box; font-family: inherit;">
+      </div>
+      <div class="modal-close-row" style="margin-top:20px;">
+        <button class="btn btn-primary" onclick="submitPasswordChange()">Update Password</button>
+        <button class="btn btn-secondary" onclick="closePasswordModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../shared/supabase-client.js"></script>
+  <script>window.REQUIRED_ROLE = 'teacher';</script>
+  <script src="../shared/auth-guard.js"></script>
+  <script src="../shared/toast.js"></script>
+  <script src="dashboard.js"></script>
+
+  <script src="../shared/sidebar.js"></script>
+</body>
+</html>
